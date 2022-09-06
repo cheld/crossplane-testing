@@ -1,0 +1,17 @@
+apiVersion: database.aws.crossplane.io/v1beta1
+kind: RDSInstance
+metadata:
+  name: test-christoph
+spec:
+  forProvider:
+    region: eu-central-1
+    dbInstanceClass: db.t3.micro
+    masterUsername: masteruser
+    allocatedStorage: 20
+    engine: postgres
+    engineVersion: "12"
+    skipFinalSnapshotBeforeDeletion: true
+    dbSubnetGroupName: acmcloudpdb
+  writeConnectionSecretToRef:
+    namespace: crossplane-system
+    name: aws-rdspostgresql-conn

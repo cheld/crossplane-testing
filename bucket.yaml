@@ -1,0 +1,17 @@
+apiVersion: s3.aws.crossplane.io/v1beta1
+kind: Bucket
+metadata:
+  name: test-christoph-crossplane
+  namespace: default
+spec:
+  deletionPolicy: Delete
+  forProvider:
+    acl: private
+    locationConstraint: eu-central-1
+    versioningConfiguration:
+      status: Enabled
+    publicAccessBlockConfiguration:
+      blockPublicAcls: TRUE
+      blockPublicPolicy: TRUE
+      ignorePublicAcls: TRUE
+      restrictPublicBuckets: TRUE

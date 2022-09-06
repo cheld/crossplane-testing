@@ -1,0 +1,21 @@
+# Copyright Amazon.com, Inc. or its affiliates. All Rights Reserved.
+# SPDX-License-Identifier: MIT-0
+
+apiVersion: awsblueprints.io/v1alpha1
+kind: ObjectStorage
+metadata:
+  name: test-christoph-storage
+  namespace: default
+spec:
+  compositionSelector:
+    matchLabels:
+      awsblueprints.io/provider: aws
+      awsblueprints.io/environment: dev
+      s3.awsblueprints.io/configuration: standard
+  resourceConfig:
+    region: eu-central-1
+    tags:
+      - key: env
+        value: test
+      - key: anotherKey
+        value: anotherValue

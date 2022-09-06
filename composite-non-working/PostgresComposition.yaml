@@ -1,0 +1,30 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: example
+  labels:
+    crossplane.io/xrd: xpostgresqlinstances.database.example.org
+    provider: aws
+spec:
+  writeConnectionSecretsToNamespace: crossplane-system
+  compositeTypeRef:
+    apiVersion: database.example.org/v1alpha1
+    kind: XPostgreSQLInstance
+  resources:
+  - name: rdsinstance
+    base:
+      apiVersion: database.aws.crossplane.io/v1beta1
+      kind: RDSInstance
+      spec:
+        forProvider:
+          region: eu-central-1
+          dbInstanceClass: db.t3.micro
+          masterUsername: masteruser
+          engine: postgres
+          engineVersion: "12"
+          skipFinalSnapshotBeforeDeletion: true
+          dbSubnetGroupName: acmcloudpdb
+    patches:
+    - type: FromCompositeFieldPath
+      fromFieldPath: spec.parameters.storageGB
+      toFieldPath: spec.forProvider.settings.allocatedStorage

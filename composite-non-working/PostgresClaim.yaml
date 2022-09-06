@@ -1,0 +1,12 @@
+apiVersion: database.example.org/v1alpha1
+kind: PostgreSQLInstance
+metadata:
+  namespace: default
+  name: my-db
+spec:
+  parameters:
+    storageGB: 20
+  compositionRef:
+    name: production
+  writeConnectionSecretToRef:
+    name: my-db-connection-details
